@@ -109,3 +109,48 @@ console.log(
     ['two', 'times', 'two', 'is', 'four']
   )
 );
+
+function checkMagazine2(magazine, note) {
+  // Creamos copias de los arrays originales para evitar modificarlos
+  let wordsInMagazine = magazine.slice();
+  let wordsInRansomNote = note.slice();
+
+  // Creamos un objeto para contar las ocurrencias de cada palabra en el magazine
+  let wordCount = {};
+  wordsInMagazine.forEach((word) => {
+    if (!wordCount[word]) wordCount[word] = 0;
+    wordCount[word]++;
+  });
+
+  // Verificamos si todas las palabras del ransom note están en el magazine
+  // y si hay suficientes ocurrencias de cada palabra
+  let hasAllWords = true;
+  wordsInRansomNote.forEach((word) => {
+    if (!wordCount[word] || wordCount[word] === 0) {
+      hasAllWords = false;
+      return;
+    }
+    wordCount[word]--;
+  });
+
+  // Si todas las palabras están en el magazine y hay suficientes ocurrencias,
+  // retornamos Yes, de lo contrario retornamos No
+  if (hasAllWords) return 'Yes';
+  else return 'No';
+}
+
+// Ejemplo 1:
+console.log(
+  checkMagazine2(
+    ['give', 'me', 'one', 'grand', 'today', 'night'],
+    ['give', 'one', 'grand', 'today']
+  )
+);
+
+// Ejemplo 2:
+console.log(
+  checkMagazine2(
+    ['two', 'times', 'three', 'is', 'not', 'four'],
+    ['two', 'times', 'two', 'is', 'four']
+  )
+);
